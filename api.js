@@ -9,6 +9,7 @@ const createOrder = require('./handlers/create-order')
 const updateOrder = require('./handlers/update-order')
 const deleteOrder = require('./handlers/delete-order')
 const updateDeliveryStatus = require('./handlers/update-delivery-status')
+const getSignedUrl = require('./handlers/generate-presigned-url.js')
 
 api.get('/', () => 'Welcome to Leos Pizza Api')
 api.get('/pizzas', () => {
@@ -49,6 +50,12 @@ api.get('/pizzas', () => {
     return updateDeliveryStatus(request.body)
   }, {
     success: 200,
+    error: 400
+  })
+
+  api.get('upload-url', (request) => {
+    return getSignedUrl()
+  },{
     error: 400
   })
 module.exports = api
